@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Robert Walker - Tea Powered Coder</title>
+	<link rel="stylesheet" type="text/css" href="layout/layout.css">
+	<link rel="stylesheet" type="text/css" href="layout/fontawesome/css/font-awesome.min.css">
+	
+    <script src="scripts/JScript.js"></script>
+
+</head>
+
+<body>
+	<div id="container">
+
+		<div id="left">
+        <img id="logo" src="layout/logo.png" />
+		</div>
+
+		<div id="right">
+
+			<div class="contentDiv">
+				<h1>Schedule backup schedule</h1>
+				<div class="SubDiv">
+				      <input type="radio" name="Schedule" value="DontUse" checked="checked"> Don't use
+				  <br><input type="radio" name="Schedule" value="NumberDays"> Prompt number of time passed
+				  <br><span class="InputSpan"><input id="ScheduleMonths" type="number" name="quantity" min="0" value="0">Months
+				                              <input id="ScheduleWeeks" type="number" name="quantity" min="0" value="1">Weeks
+				                              <input id="ScheduleDays" type="number" name="quantity" min="0" value="0">Days</span>
+				  <br><input type="radio" name="Schedule" value="NumberSaves"> Prompt after number of saves
+				  <br><span class="InputSpan"><input id="ScheduleSaves" type="number" name="quantity" value="1" min="1"></span>
+				  <br><br><button id="SaveSchedule">Save</button>
+				</div>
+				<h1>Download backup</h1>
+				<div class="SubDiv">
+					<img class="icon" src="layout/downloadIcon.png"><span id="content"><a id="DownloadBackupLink">Download backup file</a></span>
+				</div>
+				<br>
+				<h1>Upload backup</h1>
+				<div class="SubDiv">
+					<input type=file id="files" />
+					<br><br><u>On duplicate</u>
+					<br><input type="radio" name="OnDuplicate" value="KeepCurrent" checked="checked"> Keep current
+					<br><input type="radio" name="OnDuplicate" value="UseBackup"> Use backup
+					<br><input type="radio" name="OnDuplicate" value="Merge"> Merge
+					<br><br><button id="upload">Upload</button>
+				</div>
+			</div>
+
+			<div id="AboutDev" class="contentDiv">
+				<img src="layout/MyLogo.png" />
+				<div>
+					<h2>Help the dev</h2>
+					<table>
+					<tr>
+						<td>Website :</td>
+						<td>
+							<a href="http://Robert-Walker.com"><img class="icon" src="layout/linkIcon.png"> Robert-Walker.com</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Rate :   </td>
+							<td><a href="https://chrome.google.com/webstore/detail/facebook-profile-post-it/jdbiadapaaifgckbfdbekjadddpodfdb?hl=en-GB"><img class="icon" src="layout/linkIcon.png"> Chrome store</a>
+						</td>
+					</tr>
+					</table>
+										
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+		</div>
+
+
+	</div>
+
+
+
+</body></html>

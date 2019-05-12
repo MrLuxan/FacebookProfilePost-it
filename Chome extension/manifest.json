@@ -1,0 +1,21 @@
+{
+  "name": "Facebook Profile Post-it",
+  "version": "1.0.2",
+  "description": "Keep a note on person's profile page",
+  "permissions": ["storage"],
+  "icons": { "16": "images/Icon16.png",
+             "48": "images/Icon48.png",
+          	 "128":"images/Icon128.png" },
+  "content_scripts": [
+    {
+      "matches": ["*://*.facebook.com/*"],
+      "js": ["contentscript.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    "images/*.png",
+    "options/index.html"
+  ],
+  "options_page": "options/index.html",
+  "manifest_version": 2
+}
