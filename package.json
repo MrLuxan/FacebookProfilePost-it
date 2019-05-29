@@ -7,6 +7,7 @@
     "browserify": "^16.2.3",
     "gulp": "^4.0.0",
     "gulp-images-resizer": "0.0.7",
+    "gulp-json-editor": "^2.5.2",
     "gulp-rename": "^1.4.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-typescript": "^5.0.1",

@@ -12,10 +12,7 @@ var rename = require("gulp-rename");
 
 require('require-dir')('./gulp-tasks');
 
-
-let ChomeExtension = "./Chome extension/";
-
-gulp.task("default", gulp.series(gulp.parallel(['imageResize']), function () {
+gulp.task("default", gulp.series(gulp.parallel(['ChromeIconResize']), function () {
     return browserify({
         basedir: '.',
         debug: true,
