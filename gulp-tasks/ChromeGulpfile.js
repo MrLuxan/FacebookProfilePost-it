@@ -3,7 +3,10 @@ var resizer = require('gulp-images-resizer');
 var rename = require("gulp-rename");
 var jeditor = require("gulp-json-editor");
 
-var GulpVars = require('./GulpVariables');
+
+var fs = require('fs');
+var GulpVars = JSON.parse(fs.readFileSync('./gulp-tasks/GulpVariables.json'))
+
 
 var ResizeImageTasks = [];
 [128,48,16].forEach(function(size) {
