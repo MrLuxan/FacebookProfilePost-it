@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "Facebook Profile Post-it",
+  "description": "Keep a note on a person's profile page",
+  "version": "---",
+  "applications": {
+    "gecko": {
+      "id": "email@Robert-Walker.com"
+    }
+  },
+  "icons": {
+    "512": "images/Icon512.png",
+    "128": "images/Icon128.png"
+  },
+  "web_accessible_resources": [
+    "images/*.png"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.facebook.com/*"],
+      "js": ["indexedbInterface.js", "contentscript.js"]
+    }
+  ]
+
+}
