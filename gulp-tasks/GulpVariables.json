@@ -1,5 +1,5 @@
 {
-    "ExtensionVersion": "2.0.0",
+    "ExtensionVersion": "2.2.2",
     "ChromeSrc": "./src/Chome/",
     "ChromeDist": "./Chome extension/",
     "FirefoxSrc": "./src/Firefox/",

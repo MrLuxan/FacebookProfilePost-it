@@ -16,7 +16,6 @@ require('require-dir')('./gulp-tasks');
 var fs = require('fs');
 var GulpVars = JSON.parse(fs.readFileSync('./gulp-tasks/GulpVariables.json'))
 
-
 gulp.task("default", gulp.series(gulp.parallel(['ChromeIconResize']), function () {
     return browserify({
         basedir: '.',
@@ -34,24 +33,3 @@ gulp.task("default", gulp.series(gulp.parallel(['ChromeIconResize']), function (
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(ChomeExtension));
 }));
-
-gulp.task('CheckExtensionVersion', function(){
-    return gulp.src('./gulp-tasks/GulpVariables.json')
-               .pipe(jeditor(function(json){console.log(json.ExtensionVersion)}));
-});
-
-
-gulp.task('SetExtensionVersion', function() {
-    let version = "---";
-    let argI = process.argv.indexOf("--args");
-    if(argI>-1) {
-        version = process.argv[argI+1];
-    }
-
-    return gulp.src('./gulp-tasks/GulpVariables.json')
-               .pipe(jeditor(function(json) {
-                    json.ExtensionVersion = version;
-                    return json; // must return JSON object.
-                }))
-                .pipe(gulp.dest('./gulp-tasks/'));
-});

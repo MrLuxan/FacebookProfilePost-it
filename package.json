@@ -1,7 +1,7 @@
 {
   "name": "facebookprofilepost-it",
   "version": "1.0.0",
-  "description": "Implementation of the [CodeNames](https://www.amazon.co.uk/dp/B014Q1XX9S) board game using TypeScript.",
+  "description": "Chrome and Firefox extension to added notes to faceabook's profile pages.",
   "main": "main.js",
   "dependencies": {
     "browserify": "^16.2.3",
@@ -24,7 +24,8 @@
     "node-sass": "^4.12.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "SetExtensionVersion": "node -e \"require('./Scripts').SetExtensionVersion()\"",
+    "CheckExtensionVersion": "node -e \"require('./Scripts').CheckExtensionVersion()\""
   },
   "repository": {
     "type": "git",
