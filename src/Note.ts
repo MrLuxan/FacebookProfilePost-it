@@ -1,49 +1,68 @@
 import { UiElement } from "./UiElement";
 declare var chrome: any;
 
-export class Card extends UiElement {
+export class Note extends UiElement {
+
+	ProfilePostit : HTMLElement = null;
+	EditSaveButton : HTMLElement = null;
+	SettingsButton : HTMLElement = null;
 
 	unlock()
 	{
-		document.getElementById('ProfilePostit').removeAttribute("readonly");
-		document.getElementById('EditSaveButton').textContent = "Save";
+		this.ProfilePostit.removeAttribute("readonly");
+		this.EditSaveButton.textContent = "Save";
 
-		document.getElementById("EditSaveButton").removeEventListener("click", unlock);
-		document.getElementById('EditSaveButton').addEventListener("click", save );
+		//this.EditSaveButton.removeEventListener("click", unlock);
+		//this.EditSaveButton.addEventListener("click", save );
 	}
 
 	ShowSettings()
 	{
 	}
 
-	GetNoteElement(usernote : string)
-	{
-		var cheatspan = document.createElement("span");
-		cheatspan.innerHTML = '<li style="margin-bottom:17px;border: 1px solid #d3d6db;border-radius: 3px;background:#fff;">\
-							<div class="clearfix _3-8t _2pi4">\
-								<div style="width: 24px;height: 24px;border-radius: 12px;background-color:#3b5998;color:#FFF;text-align: center;float:left;transform: rotate(45deg);font-size: 18px;">&#9999;</div>\
-								<div class="_8u _42ef">\
-									<div class="_6a _3-99">\
-										<div class="_6a _6b" style="height:24px"></div>\
-										<div class="_6a _6b">\
-											<span class="_50f5 _5kx5">Note</span>\
-										</div>\
-									</div>\
-									<div title="Settings" id="SettingsButton" style="float:right;cursor:pointer;"><img src="'+chrome.extension.getURL("images/settings.png")+'"></div>\
-								</div>\
-							</div>\
-						<div style="margin: 0px 3px">\
-							<textarea readonly="true" id="ProfilePostit" style="resize:vertical;height:78px;padding:5px;width:calc(100% - 12px);">'+usernote+'</textarea>\
-							<span id="SavedNotification" style="float:left;color:#9197a3;font-size: 11px;opacity:0;">Saved</span>\
-							<span id="EditSaveButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer"> Edit </span><hr style="clear: both;visibility: hidden;margin-right: 5px;">\
-						</div>\
-						</li>';
+    constructor(usernote : string)
+    {
+		super();
+	
+		let html : string =
+		`<div id="profile_timeline_intro_card" data-referrer="profile_timeline_intro_card">
+   <li class="fbTimelineTwoColumn fbTimelineUnit clearfix" data-type="r">
+      <div class="_4-u2 _4-u8" id="u_0_1t">
+         <div class="clearfix _3-8t _2pi4 _46yc">
+				 <div title="Settings" id="SettingsButton" style="float:right;cursor:pointer;margin-right:10px;"><img src="` +chrome.runtime.getURL("images/settings.png")+`"></div>
+				 <div style="width: 24px;height: 24px;border-radius: 12px;background-color:#3b5998;color:#FFF;text-align: center;float:left;transform: rotate(45deg);font-size: 18px;">&#9999;</div>
+            <div class="clearfix _8u _42ef">
+               <span class="_65tx rfloat _ohf"></span>
+               <div class="_6a _3-99">
+                  <div class="_6a _6b" style="height:24px"></div>
+                  <div class="_6a _6b"><span role="heading" aria-level="3" class="_2iel _5kx5">Intro</span></div>
+               </div>
+            </div>
+         </div>
+         <div id="intro_container_id">
+            <div class="_3-8t">
+               <div class="_3c-4 _2x70 __2p _2ph- _52jv">
+							 	<textarea readonly="true" id="ProfilePostit" style="resize:vertical;height:78px;padding:5px;width:calc(100% - 12px);">${usernote}</textarea>
+							 	<span id="SavedNotification" style="float:left;color:#9197a3;font-size: 11px;opacity:0;">Saved</span>
+							 	<span id="EditSaveButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer"> Edit </span><hr style="clear: both;visibility: hidden;margin-right: 5px;">
+               </div>
+            </div>
+            <div class="_3-8t">
+               <div id="owned_pages_container_id"></div>
+            </div>
+         </div>
+      </div>
+   </li>
+</div>`;
 
-		var list = document.querySelector('._2t4v.clearfix');
-		list.insertBefore(cheatspan.firstChild, list.childNodes[0]);
+		this.DomElement = this.htmlToElement(html);
 
-		document.getElementById('ProfilePostit').addEventListener("dblclick", this.unlock );
-		document.getElementById('EditSaveButton').addEventListener("click", this.unlock );
-		document.getElementById('SettingsButton').addEventListener("click", this.ShowSettings);
+		this.ProfilePostit = this.DomElement.querySelector('#ProfilePostit');
+		this.EditSaveButton = this.DomElement.querySelector('#EditSaveButton');
+		this.SettingsButton = this.DomElement.querySelector('#SettingsButton');
+
+		//this.ProfilePostit.addEventListener("dblclick", this.unlock );
+		//this.EditSaveButton.addEventListener("click", this.unlock );
+		//this.SettingsButton.addEventListener("click", this.ShowSettings);
 	}
 }

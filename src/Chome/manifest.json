@@ -12,10 +12,6 @@
       "js": ["contentscript.js"]
     }
   ],
-  "web_accessible_resources": [
-    "images/*.png",
-    "options/index.html"
-  ],
-  "options_page": "options/index.html",
+  "web_accessible_resources": ["images/*.png"],
   "manifest_version": 2
 }

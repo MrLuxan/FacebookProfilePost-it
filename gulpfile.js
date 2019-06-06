@@ -20,7 +20,7 @@ gulp.task("default", gulp.series(gulp.parallel(['ChromeIconResize']), function (
     return browserify({
         basedir: '.',
         debug: true,
-        entries: ["src/main.ts"],
+        entries: ["src/Main.ts"],
         cache: {},
         packageCache: {}
     })
@@ -31,5 +31,5 @@ gulp.task("default", gulp.series(gulp.parallel(['ChromeIconResize']), function (
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(uglify())
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(ChomeExtension));
+    .pipe(gulp.dest(GulpVars.ChromeDist));
 }));

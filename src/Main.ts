@@ -1,3 +1,7 @@
+import { Note } from "./Note";
+
+let lastName = "";
+
 let observer = new MutationObserver(function(mutations) {
 	// For the sake of...observation...let's output the mutation to console to see how this all works
 	mutations.forEach(function(mutation) {
@@ -5,14 +9,17 @@ let observer = new MutationObserver(function(mutations) {
 
 
 		var new_url = document.location.toString();
-	
 		let url = new_url;
-
-		var urlBrakeDown = url.match(/https?\:\/\/(?:www\.)?facebook\.com\/(\d+|[A-Za-z0-9\.]+)\/?/);
-
+		let urlBrakeDown = url.match(/https?\:\/\/(?:www\.)?facebook\.com\/(\d+|[A-Za-z0-9\.]+)\/?/);
 		let username = urlBrakeDown[1];
 
-		console.log(username);
+		let note : string = "";
+
+		let newNote = new Note(note);
+
+		var list = document.querySelector('#timeline_small_column');
+		list.insertBefore(newNote.DomElement, list.childNodes[0]);
+
 
 	});    
 });
