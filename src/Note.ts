@@ -4,21 +4,29 @@ declare var chrome: any;
 export class Note extends UiElement {
 
 	ProfilePostit : HTMLElement = null;
-	EditSaveButton : HTMLElement = null;
+	EditButton : HTMLElement = null;
+	SaveButton : HTMLElement = null;
 	SettingsButton : HTMLElement = null;
 
-	unlock()
+	Unlock()
 	{
 		this.ProfilePostit.removeAttribute("readonly");
-		this.EditSaveButton.textContent = "Save";
+		this.EditButton.style.display = "none";
+		this.SaveButton.style.display = "inline";
+	}
 
-		//this.EditSaveButton.removeEventListener("click", unlock);
-		//this.EditSaveButton.addEventListener("click", save );
+	Save()
+	{
+		this.ProfilePostit.setAttribute("readonly","true");
+		this.EditButton.style.display = "inline";
+		this.SaveButton.style.display = "none";
 	}
 
 	ShowSettings()
 	{
 	}
+
+
 
     constructor(usernote : string)
     {
@@ -44,7 +52,9 @@ export class Note extends UiElement {
                <div class="_3c-4 _2x70 __2p _2ph- _52jv">
 							 	<textarea readonly="true" id="ProfilePostit" style="resize:vertical;height:78px;padding:5px;width:calc(100% - 12px);">${usernote}</textarea>
 							 	<span id="SavedNotification" style="float:left;color:#9197a3;font-size: 11px;opacity:0;">Saved</span>
-							 	<span id="EditSaveButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer"> Edit </span><hr style="clear: both;visibility: hidden;margin-right: 5px;">
+								 <span id="EditButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer"> Edit </span>
+								 <span id="SaveButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer;display:none"> Save </span>
+								 <hr style="clear: both;visibility: hidden;margin-right: 5px;">
                </div>
             </div>
             <div class="_3-8t">
@@ -58,11 +68,13 @@ export class Note extends UiElement {
 		this.DomElement = this.htmlToElement(html);
 
 		this.ProfilePostit = this.DomElement.querySelector('#ProfilePostit');
-		this.EditSaveButton = this.DomElement.querySelector('#EditSaveButton');
+		this.EditButton = this.DomElement.querySelector('#EditButton');
+		this.SaveButton = this.DomElement.querySelector('#SaveButton');
 		this.SettingsButton = this.DomElement.querySelector('#SettingsButton');
-
-		//this.ProfilePostit.addEventListener("dblclick", this.unlock );
-		//this.EditSaveButton.addEventListener("click", this.unlock );
-		//this.SettingsButton.addEventListener("click", this.ShowSettings);
+		
+		this.ProfilePostit.addEventListener('dblclick', (e:Event) => this.Unlock());
+		this.EditButton.addEventListener("click", (e:Event) => this.Unlock());
+		this.SaveButton.addEventListener("click", (e:Event) => this.Save());
+		this.SettingsButton.addEventListener("click", (e:Event) => this.ShowSettings());
 	}
 }
