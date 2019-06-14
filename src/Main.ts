@@ -1,4 +1,5 @@
 import { Note } from "./Note";
+import { DataStore } from "./DataStore"
 
 let LastURL : string = "";
 let LastName : string = "";
@@ -40,3 +41,10 @@ let observerConfig = {
  
 let targetNode = document.body;
 observer.observe(targetNode, observerConfig);
+
+
+
+DataStore.LoadSettings();
+DataStore.SaveSettings();
+DataStore.LoadUserNote("User");
+DataStore.SaveUserNote("USer","note")
