@@ -1,7 +1,11 @@
 import { UiElement } from "./UiElement";
+import { DataStore } from "./DataStore"
+
 declare var chrome: any;
 
 export class Note extends UiElement {
+
+	UserName : string;
 
 	ProfilePostit : HTMLElement = null;
 	EditButton : HTMLElement = null;
@@ -17,19 +21,26 @@ export class Note extends UiElement {
 
 	Save()
 	{
+		let note = "";
+		DataStore.DS.SaveUserNote(this.UserName,note,(saveOK : boolean) => {
 		this.ProfilePostit.setAttribute("readonly","true");
 		this.EditButton.style.display = "inline";
 		this.SaveButton.style.display = "none";
+		});
 	}
 
 	ShowSettings()
 	{
+		//todo
 	}
 
-    constructor(usernote : string)
+    constructor(userName : string)
     {
 		super();
 	
+		this.UserName = userName;
+
+		DataStore.DS.LoadUserNote(userName, (note : string)=>{
 		let html : string =
 		`<div id="profile_timeline_intro_card" data-referrer="profile_timeline_intro_card">
 			<li class="fbTimelineTwoColumn fbTimelineUnit clearfix" data-type="r">
@@ -48,7 +59,7 @@ export class Note extends UiElement {
 					<div id="intro_container_id">
 						<div class="_3-8t">
 						<div class="_3c-4 _2x70 __2p _2ph- _52jv">
-											<textarea readonly="true" id="ProfilePostit" style="resize:vertical;height:78px;padding:5px;width:calc(100% - 12px);">${usernote}</textarea>
+											<textarea readonly="true" id="ProfilePostit" style="resize:vertical;height:78px;padding:5px;width:calc(100% - 12px);">${note}</textarea>
 											<span id="SavedNotification" style="float:left;color:#9197a3;font-size: 11px;opacity:0;">Saved</span>
 											<span id="EditButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer"> Edit </span>
 											<span id="SaveButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer;display:none"> Save </span>
@@ -74,5 +85,7 @@ export class Note extends UiElement {
 		this.EditButton.addEventListener("click", (e:Event) => this.Unlock());
 		this.SaveButton.addEventListener("click", (e:Event) => this.Save());
 		this.SettingsButton.addEventListener("click", (e:Event) => this.ShowSettings());
+
+		});
 	}
 }

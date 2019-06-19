@@ -1,5 +1,4 @@
 import { Note } from "./Note";
-import { DataStore } from "./DataStore"
 
 let LastURL : string = "";
 let LastName : string = "";
@@ -21,7 +20,6 @@ let observer = new MutationObserver(function(mutations) {
 					LastName = username;
 					LastURL = new_url;
 
-					let note : string = "";
 					let newNote = new Note(username);
 
 					list.insertBefore(newNote.DomElement, list.childNodes[0]);
@@ -44,7 +42,7 @@ observer.observe(targetNode, observerConfig);
 
 
 
-DataStore.LoadSettings();
-DataStore.SaveSettings();
-DataStore.LoadUserNote("User");
-DataStore.SaveUserNote("USer","note")
+// DataStore.LoadSettings();
+// DataStore.SaveSettings();
+// DataStore.LoadUserNote("User");
+// DataStore.SaveUserNote("USer","note")

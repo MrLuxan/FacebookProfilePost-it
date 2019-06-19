@@ -1,12 +1,16 @@
-class DataStoreClass {
+declare var chrome: any;
+export module DataStore {
+    export class DataStoreClass {
 
-    LoadUserNote(user : string) : string
-    {
-        console.log("C LoadUserNote");
-        return "";
+    Settings = "";
+
+    LoadUserNote(username : string, callBack: (note: string) => void): void
+    {   
+        let usernote :string = "TESTTEST";
+        callBack(usernote);
     }
 
-    SaveUserNote(user : string , note : string)
+    SaveUserNote(user : string , note : string, callBack: (saveOk : boolean) => void): void
     {
         console.log("C SaveUserNode");
     }
@@ -21,5 +25,33 @@ class DataStoreClass {
     {
         console.log("C SaveSettings");
     }
+
+
+    // Save(){
+
+    //     chrome.storage.sync.set({TallyItems: items}, function() {
+    //      // console.log('Value is set to ' + items);
+    //     });
+    // }
+    
+    // Load(callBack){
+    //     chrome.storage.sync.get(['TallyItems'], function(result) 
+    //     {
+    //         if(result.TallyItems == null)
+    //         {
+    //             items = [];
+    //         }
+    //         else
+    //         {
+    //             items = result.TallyItems;
+    //         }
+    
+    //           callBack();
+    //     });
+    // }
+
+
 }
-export let DataStore : DataStoreClass = new DataStoreClass();
+
+export let DS : DataStoreClass = new DataStoreClass();
+}

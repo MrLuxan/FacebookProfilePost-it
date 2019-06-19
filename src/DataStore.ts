@@ -1,12 +1,15 @@
-class DataStoreClass {
+declare var chrome: any;
+export module DataStore {
+    export class DataStoreClass {
 
-    LoadUserNote(user : string) : string
-    {
-        console.log("B LoadUserNote");
-        return "";
+    LoadUserNote(username : string, callBack: (note: string) => void): void
+    {   
+        let usernote :string = "BaseBase";
+    
+        callBack(usernote);
     }
 
-    SaveUserNote(user : string , note : string)
+    SaveUserNote(user : string , note : string, callBack: (saveOk : boolean) => void): void
     {
         console.log("B SaveUserNode");
     }
@@ -22,4 +25,6 @@ class DataStoreClass {
         console.log("B SaveSettings");
     }
 }
-export let DataStore : DataStoreClass = new DataStoreClass();
+
+export let DS : DataStoreClass = new DataStoreClass();
+}
