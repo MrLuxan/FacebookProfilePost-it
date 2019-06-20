@@ -21,8 +21,6 @@ let observer = new MutationObserver(function(mutations) {
 					LastURL = new_url;
 
 					let newNote = new Note(username);
-
-					list.insertBefore(newNote.DomElement, list.childNodes[0]);
 				}
 			}
 		}

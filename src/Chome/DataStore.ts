@@ -2,17 +2,35 @@ declare var chrome: any;
 export module DataStore {
     export class DataStoreClass {
 
-    Settings = "";
-
     LoadUserNote(username : string, callBack: (note: string) => void): void
     {   
-        let usernote :string = "TESTTEST";
-        callBack(usernote);
+        chrome.storage.sync.get("profileNotes", (items : any) => {
+        
+            let profileNotes : { [Username: string]: string; } = items.profileNotes; 
+
+            if(profileNotes === undefined)
+                profileNotes = {};
+
+            let note = (profileNotes[username] === undefined ? "" : profileNotes[username]);
+            callBack(note);
+        });        
     }
 
-    SaveUserNote(user : string , note : string, callBack: (saveOk : boolean) => void): void
+    SaveUserNote(username : string , note : string, callBack: (saveOk : boolean) => void): void
     {
-        console.log("C SaveUserNode");
+        chrome.storage.sync.get("profileNotes", (items : any) => {
+
+            let profileNotes : { [Username: string]: string; } = items.profileNotes; 
+
+            if(profileNotes === undefined)
+                profileNotes = {};
+            	
+            profileNotes[username] = note;
+
+            chrome.storage.sync.set({"profileNotes": profileNotes}, () => {
+                callBack(true);
+            });
+        });
     }
 
     LoadSettings() : object
@@ -25,32 +43,6 @@ export module DataStore {
     {
         console.log("C SaveSettings");
     }
-
-
-    // Save(){
-
-    //     chrome.storage.sync.set({TallyItems: items}, function() {
-    //      // console.log('Value is set to ' + items);
-    //     });
-    // }
-    
-    // Load(callBack){
-    //     chrome.storage.sync.get(['TallyItems'], function(result) 
-    //     {
-    //         if(result.TallyItems == null)
-    //         {
-    //             items = [];
-    //         }
-    //         else
-    //         {
-    //             items = result.TallyItems;
-    //         }
-    
-    //           callBack();
-    //     });
-    // }
-
-
 }
 
 export let DS : DataStoreClass = new DataStoreClass();

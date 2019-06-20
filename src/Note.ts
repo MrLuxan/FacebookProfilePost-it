@@ -7,7 +7,7 @@ export class Note extends UiElement {
 
 	UserName : string;
 
-	ProfilePostit : HTMLElement = null;
+	ProfilePostit : HTMLTextAreaElement = null;
 	EditButton : HTMLElement = null;
 	SaveButton : HTMLElement = null;
 	SettingsButton : HTMLElement = null;
@@ -21,11 +21,11 @@ export class Note extends UiElement {
 
 	Save()
 	{
-		let note = "";
+		let note = this.ProfilePostit.value;
 		DataStore.DS.SaveUserNote(this.UserName,note,(saveOK : boolean) => {
-		this.ProfilePostit.setAttribute("readonly","true");
-		this.EditButton.style.display = "inline";
-		this.SaveButton.style.display = "none";
+			this.ProfilePostit.setAttribute("readonly","true");
+			this.EditButton.style.display = "inline";
+			this.SaveButton.style.display = "none";
 		});
 	}
 
@@ -85,6 +85,10 @@ export class Note extends UiElement {
 		this.EditButton.addEventListener("click", (e:Event) => this.Unlock());
 		this.SaveButton.addEventListener("click", (e:Event) => this.Save());
 		this.SettingsButton.addEventListener("click", (e:Event) => this.ShowSettings());
+
+
+		let list = document.querySelector('#timeline_small_column');
+		list.insertBefore(this.DomElement, list.childNodes[0]);
 
 		});
 	}
