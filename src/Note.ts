@@ -1,5 +1,6 @@
 import { UiElement } from "./UiElement";
 import { DataStore } from "./DataStore"
+import { SettingsEl } from "./SettingsEl"
 
 declare var chrome: any;
 
@@ -31,6 +32,8 @@ export class Note extends UiElement {
 
 	ShowSettings()
 	{
+		new SettingsEl();
+
 		//todo
 	}
 
@@ -42,9 +45,9 @@ export class Note extends UiElement {
 
 		DataStore.DS.LoadUserNote(userName, (note : string)=>{
 		let html : string =
-		`<div id="profile_timeline_intro_card" data-referrer="profile_timeline_intro_card">
-			<li class="fbTimelineTwoColumn fbTimelineUnit clearfix" data-type="r">
-				<div class="_4-u2 _4-u8" id="u_0_1t">
+		`<div>
+			<li class="fbTimelineTwoColumn fbTimelineUnit clearfix">
+				<div class="_4-u2 _4-u8">
 					<div class="clearfix _3-8t _2pi4 _46yc">
 							<div title="Settings" id="SettingsButton" style="float:right;cursor:pointer;margin-right:10px;"><img src="` +chrome.runtime.getURL("images/settings.png")+`"></div>
 							<div style="width: 24px;height: 24px;border-radius: 12px;background-color:#3b5998;color:#FFF;text-align: center;float:left;transform: rotate(45deg);font-size: 18px;">&#9999;</div>
@@ -52,7 +55,7 @@ export class Note extends UiElement {
 						<span class="_65tx rfloat _ohf"></span>
 						<div class="_6a _3-99">
 							<div class="_6a _6b" style="height:24px"></div>
-							<div class="_6a _6b"><span role="heading" aria-level="3" class="_2iel _5kx5">Intro</span></div>
+							<div class="_6a _6b"><span role="heading" aria-level="3" class="_2iel _5kx5">Note</span></div>
 						</div>
 						</div>
 					</div>
