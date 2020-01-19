@@ -5,6 +5,13 @@ declare var chrome: any;
 
 export class SettingsEl extends UiElement {
 
+	CloseButton : HTMLElement = null;
+
+	Close()
+	{
+		this.DomElement.parentNode.removeChild(this.DomElement);
+	}
+
     constructor()
     {
 		super();
@@ -26,11 +33,11 @@ export class SettingsEl extends UiElement {
 										  <br><span style="margin-left: 30px;"><input id="ScheduleSaves" type="number" name="quantity" value="1" min="1"></span>\
 										  <br><button id="SaveSchedule" style="margin-top:10px;">Save</button>\
 										</div>\
-										<br><h1>Download backup</h1>\
+										<hr><h1>Download backup</h1>\
 										<div>\
 											<img src="'+chrome.extension.getURL("images/downloadIcon.png")+'" style="margin-right: 5px;"><span><a id="DownloadBackupLink">Download backup file</a></span>\
 										</div>\
-										<br><h1>Upload backup</h1>\
+										<hr><h1>Upload backup</h1>\
 										<div>\
 											<input type=file id="files" />\
 											<br><br><u>On duplicate</u>\
@@ -46,7 +53,11 @@ export class SettingsEl extends UiElement {
         this.DomElement = this.htmlToElement(html);
         document.body.insertAdjacentElement('beforeend' ,this.DomElement);
 
-        console.log(this.DomElement);
+		console.log(this.DomElement);
+		
+		this.CloseButton = this.DomElement.querySelector('#CloseSettingsX');
+		
+		this.CloseButton.addEventListener("click", (e:Event) => this.Close());
         
 	}
 }

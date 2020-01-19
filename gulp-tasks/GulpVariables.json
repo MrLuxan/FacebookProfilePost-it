@@ -1,7 +1,7 @@
 {
-    "ExtensionVersion": "2.2.2",
     "ChromeSrc": "./src/Chome/",
     "ChromeDist": "./Chome extension/",
     "FirefoxSrc": "./src/Firefox/",
-    "FirefoxDist": "./Firefox extension/"
+    "FirefoxDist": "./Firefox extension/",
+    "ExtensionVersion": "2.3.2"
 }
