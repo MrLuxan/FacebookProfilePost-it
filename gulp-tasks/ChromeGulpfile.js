@@ -17,7 +17,7 @@ var ResizeImageTasks = [];
 [128,48,16].forEach(function(size) {
     var resizeImageTask = 'resize_' + size;
     gulp.task(resizeImageTask, function() {
-      return gulp.src('src/images/*.*')
+      return gulp.src('src/Icon/*.*')
       .pipe(resizer({format: "png", width: size }))
       .pipe(rename('Icon' + size + '.png'))
       .pipe(gulp.dest(GulpVars.ChromeDist + 'images/'));
@@ -26,6 +26,12 @@ var ResizeImageTasks = [];
 });
 
 gulp.task('ChromeIconResize', gulp.series(ResizeImageTasks));
+
+gulp.task('ChromeCopyImages', function(){
+    return gulp.src('src/Images/*.*')
+    .pipe(gulp.dest(GulpVars.ChromeDist + 'images/'));
+});
+
 
 gulp.task("ChromeManifst", function () {
   return gulp.src(GulpVars.ChromeSrc+ "manifest.json")
@@ -58,6 +64,6 @@ gulp.task('ChromeBuildJs', gulp.series(
 
 
 gulp.task('ChromeFull', gulp.series(
-  gulp.parallel('ChromeIconResize','ChromeManifst','ChromeBuildJs')
+  gulp.parallel('ChromeIconResize','ChromeCopyImages','ChromeManifst','ChromeBuildJs')
   //Package
   ));

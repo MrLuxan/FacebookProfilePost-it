@@ -9,18 +9,21 @@ let observer = new MutationObserver(function(mutations) {
 		if(LastURL != new_url)
 		{
 			let urlBrakeDown = new_url.match(/https?\:\/\/(?:www\.)?facebook\.com\/(\d+|[A-Za-z0-9\.]+)\/?/);
-		
-			if(urlBrakeDown.length >= 2)
+
+			if(urlBrakeDown != null)
 			{
-				let username = urlBrakeDown[1];
-
-				let list = document.querySelector('#timeline_small_column');
-				if(username != LastName && list != null)
+				if(urlBrakeDown.length >= 2)
 				{
-					LastName = username;
-					LastURL = new_url;
+					let username = urlBrakeDown[1];
 
-					let newNote = new Note(username);
+					let list = document.querySelector('#timeline_small_column');
+					if(username != LastName && list != null)
+					{
+						LastName = username;
+						LastURL = new_url;
+
+						let newNote = new Note(username);
+					}
 				}
 			}
 		}

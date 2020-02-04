@@ -24,6 +24,22 @@ export module DataStore {
     {
         console.log("B SaveSettings");
     }
+
+    ExportNotes(downloadButton : HTMLAnchorElement): void
+    {
+        console.log("B ExportNotes");
+        return null;        
+    }
+
+    ImportNotes(data : string)
+    {
+        console.log("B ImportNotes");
+    }
+
+    GetTimeStamp() : string
+    {
+        return "Now as string";
+    }
 }
 
 export let DS : DataStoreClass = new DataStoreClass();

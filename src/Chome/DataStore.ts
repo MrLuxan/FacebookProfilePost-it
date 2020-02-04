@@ -34,6 +34,38 @@ export module DataStore {
         return null;
     }
 
+    ExportNotes(downloadButton : HTMLAnchorElement): void
+    {
+        chrome.storage.sync.get("profileNotes", (items : any) => {
+            let profileNotes : { [Username: string]: string; } = items.profileNotes; 
+            if(profileNotes === undefined)
+                profileNotes = {};
+     
+            
+            
+            let fileName = "FacebookNote Backup (" + this.GetTimeStamp() + ").json";
+            let blob = new Blob([JSON.stringify(profileNotes)], {type: "octet/stream"});
+            
+            downloadButton.href = window.URL.createObjectURL(blob);
+            downloadButton.download = fileName;
+        });
+
+        return null;
+    }
+
+    GetTimeStamp() : string
+    {
+        var currentdate = new Date(); 
+        var datetime =  currentdate.getFullYear() + "-"
+                        + (currentdate.getMonth()+1)  + "-" 
+                        + currentdate.getDate() + " "  
+                        + currentdate.getHours() + ";"  
+                        + currentdate.getMinutes() + ";" 
+                        + currentdate.getSeconds();
+
+        return datetime;
+    }
+
     SaveSettings() 
     {
         console.log("C SaveSettings");

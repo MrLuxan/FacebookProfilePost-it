@@ -6,6 +6,7 @@ declare var chrome: any;
 export class SettingsEl extends UiElement {
 
 	CloseButton : HTMLElement = null;
+    DownloadBackupButton : HTMLAnchorElement = null;
 
 	Close()
 	{
@@ -35,7 +36,7 @@ export class SettingsEl extends UiElement {
 										</div>\
 										<hr><h1>Download backup</h1>\
 										<div>\
-											<img src="'+chrome.extension.getURL("images/downloadIcon.png")+'" style="margin-right: 5px;"><span><a id="DownloadBackupLink">Download backup file</a></span>\
+											<span style="margin-right: 5px;"><a id="DownloadBackupLink">Download backup file</a></span>\
 										</div>\
 										<hr><h1>Upload backup</h1>\
 										<div>\
@@ -52,12 +53,12 @@ export class SettingsEl extends UiElement {
 
         this.DomElement = this.htmlToElement(html);
         document.body.insertAdjacentElement('beforeend' ,this.DomElement);
-
-		console.log(this.DomElement);
 		
 		this.CloseButton = this.DomElement.querySelector('#CloseSettingsX');
-		
 		this.CloseButton.addEventListener("click", (e:Event) => this.Close());
-        
+		
+		this.DownloadBackupButton = this.DomElement.querySelector('#DownloadBackupLink');
+
+		DataStore.DS.ExportNotes(this.DownloadBackupButton);
 	}
 }

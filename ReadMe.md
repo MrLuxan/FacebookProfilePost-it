@@ -1,16 +1,17 @@
-# Facebook Profile Post-it
+# Facebook Profile Post-it  
 
-Read me coming soon
+Read me coming soon  
 
----
-# Build commands
+---  
 
-npm run SetExtensionVersion -BuildNo={x}
-npm run CheckExtensionVersion
+npm install  
 
-gulp ChromeIconResize
-gulp ChromeManifst
-gulp ChromeBuildJs
-gulp ChromeFull
+# Build commands  
 
+npm run SetExtensionVersion -BuildNo={x}  
+npm run CheckExtensionVersion  
 
+gulp ChromeIconResize  
+gulp ChromeManifst  
+gulp ChromeBuildJs  
+gulp ChromeFull  

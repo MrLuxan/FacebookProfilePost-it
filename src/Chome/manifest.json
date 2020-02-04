@@ -12,6 +12,6 @@
       "js": ["contentscript.js"]
     }
   ],
-  "web_accessible_resources": ["images/*.png"],
+  "web_accessible_resources": ["images/*.svg"],
   "manifest_version": 2
 }
