@@ -1,6 +1,6 @@
 import { UiElement } from "./UiElement";
 import { DataStore } from "./DataStore"
-import { SettingsEl } from "./SettingsEl"
+import { SettingsEl } from "./Settings"
 
 declare var chrome: any;
 

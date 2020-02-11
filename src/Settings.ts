@@ -6,23 +6,54 @@ declare var chrome: any;
 export class SettingsEl extends UiElement {
 
 	CloseButton : HTMLElement = null;
-    DownloadBackupButton : HTMLAnchorElement = null;
+	DownloadBackupButton : HTMLAnchorElement = null;
+	UploadBackupInput : HTMLInputElement = null;
 
 	Close()
 	{
 		this.DomElement.parentNode.removeChild(this.DomElement);
 	}
 
+	UploadBackup()
+	{
+		if (!window.FileReader) {
+			alert('Your browser is not supported')
+		}
+		else {
+			let reader = new FileReader();
+			if (this.UploadBackupInput.files.length) {
+				reader.readAsText(this.UploadBackupInput.files[0]);
+				//reader.addEventListener("load", this.processFile);
+				reader.addEventListener("load", (e:Event) => this.processFile(e));
+			} else {
+				alert('Please upload a file before continuing')
+			}
+		} 
+	}
+
+	processFile(e : any) {
+		var file = e.target.result;
+
+		if (file && file.length) {	
+			let backUpData : JSON = JSON.parse(file);
+			var checked = this.DomElement.querySelector('#OnDuplicateGroup').querySelectorAll('input:checked');
+			console.log(checked);
+			
+			//DataStore.DS.ImportNotes(backUpData);
+			//var onDupe = getCheckValue("OnDuplicate");
+	    
+		}
+	}
+
     constructor()
     {
 		super();
 
-		let html : string = '<div id="PostItSettings" style="position:fixed;top:50px;left:50%;margin-left:-400px;width:820px;z-index:100000;font-size: 16px;">\
-							    <div style="width:820px;background:#FFF;border:#e1e2e3 1px solid;font-size: 16px;box-shadow: 2px 2px 5px #aaaaaa;">\
+		let html : string = '<div id="PostItSettings" style="position:fixed;top:50px;left:50%;margin-left:-400px;width:820px;z-index:100000;font-size: 16px;background:#FFF;border:#e1e2e3 1px solid;box-shadow: 2px 2px 5px #aaaaaa;">\
 									<div style="width:800px;height:42px;background-color:#3b5998;color:#FFF;line-height: 42px;padding:0 10px;">\
 										Profile Post-it Settings<div id="CloseSettingsX" style="float:right;cursor:pointer;">X</div>\
 									</div>\
-									<div  style="margin:20px;position:relative;">\
+									<div  style="margin:10px 20px;overflow-y:scroll;height: Calc(100% - 61px);">\
 										<h1>Schedule backup reminder</h1>\
 										<div>\
 										      <input type="radio" name="Schedule" value="DontUse" checked="checked"> Don\'t use\
@@ -40,15 +71,16 @@ export class SettingsEl extends UiElement {
 										</div>\
 										<hr><h1>Upload backup</h1>\
 										<div>\
-											<input type=file id="files" />\
+											<input type="file" accept=".json" id="BackupUploadFiles" />\
 											<br><br><u>On duplicate</u>\
-											<br><input type="radio" name="OnDuplicate" value="KeepCurrent" checked="checked"> Keep current\
+											<div id="OnDuplicateGroup" style="margin: 5px 0;">\
+											<input type="radio" name="OnDuplicate" value="KeepCurrent" checked="checked"> Keep current\
 											<br><input type="radio" name="OnDuplicate" value="UseBackup"> Use backup\
 											<br><input type="radio" name="OnDuplicate" value="Merge"> Merge\
-											<br><br><button id="upload">Upload</button>\
+											</div>\
+											<button id="BackupUploadButton">Upload</button>\
 										</div>\
 									</div>\
-								</div>\
 							</div>';
 
         this.DomElement = this.htmlToElement(html);
@@ -58,6 +90,9 @@ export class SettingsEl extends UiElement {
 		this.CloseButton.addEventListener("click", (e:Event) => this.Close());
 		
 		this.DownloadBackupButton = this.DomElement.querySelector('#DownloadBackupLink');
+		this.UploadBackupInput = this.DomElement.querySelector('#BackupUploadFiles');
+        let BackupUploadButton : HTMLButtonElement = this.DomElement.querySelector("#BackupUploadButton");
+		BackupUploadButton.addEventListener("click", (e:Event) => this.UploadBackup());
 
 		DataStore.DS.ExportNotes(this.DownloadBackupButton);
 	}

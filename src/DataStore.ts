@@ -1,7 +1,10 @@
 declare var chrome: any;
 export module DataStore {
-    export class DataStoreClass {
 
+    export enum OnDupOption { KeepCurrent, UseBackup, Merge}
+
+    export class DataStoreClass {
+    
     LoadUserNote(username : string, callBack: (note: string) => void): void
     {   
         let usernote :string = "BaseBase";
@@ -31,7 +34,7 @@ export module DataStore {
         return null;        
     }
 
-    ImportNotes(data : string)
+    ImportNotes(data : JSON, option : OnDupOption) : void
     {
         console.log("B ImportNotes");
     }

@@ -1,5 +1,8 @@
 declare var chrome: any;
 export module DataStore {
+
+    export enum OnDupOption { KeepCurrent, UseBackup, Merge}
+
     export class DataStoreClass {
 
     LoadUserNote(username : string, callBack: (note: string) => void): void
@@ -51,6 +54,11 @@ export module DataStore {
         });
 
         return null;
+    }
+
+    ImportNotes(data : JSON, option : OnDupOption) : void
+    {
+
     }
 
     GetTimeStamp() : string
