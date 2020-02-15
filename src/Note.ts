@@ -62,11 +62,11 @@ export class Note extends UiElement {
 					<div id="intro_container_id">
 						<div class="_3-8t">
 						<div class="_3c-4 _2x70 __2p _2ph- _52jv">
-											<textarea readonly="true" id="ProfilePostit" style="resize:vertical;height:78px;padding:5px;width:calc(100% - 12px);">${note}</textarea>
-											<span id="SavedNotification" style="float:left;color:#9197a3;font-size: 11px;opacity:0;">Saved</span>
-											<span id="EditButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer"> Edit </span>
-											<span id="SaveButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer;display:none"> Save </span>
-											<hr style="clear: both;visibility: hidden;margin-right: 5px;">
+							<textarea readonly="true" id="ProfilePostit" style="resize:vertical;height:78px;padding:5px;width:calc(100% - 12px);">${note}</textarea>
+							<span id="SavedNotification" style="float:left;color:#9197a3;font-size: 11px;opacity:0;">Saved</span>
+							<span id="EditButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer"> Edit </span>
+							<span id="SaveButton" style="float:right;margin-right:5px;color:#9197a3;font-size: 11px; cursor:pointer;display:none"> Save </span>
+							<hr style="clear: both;visibility: hidden;margin-right: 5px;">
 						</div>
 						</div>
 						<div class="_3-8t">

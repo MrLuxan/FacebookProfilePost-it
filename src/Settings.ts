@@ -36,12 +36,18 @@ export class SettingsEl extends UiElement {
 
 		if (file && file.length) {	
 			let backUpData : JSON = JSON.parse(file);
-			var checked = this.DomElement.querySelector('#OnDuplicateGroup').querySelectorAll('input:checked');
-			console.log(checked);
-			
-			//DataStore.DS.ImportNotes(backUpData);
-			//var onDupe = getCheckValue("OnDuplicate");
-	    
+			let onDupOp : DataStore.OnDupOption;
+
+			let checked : HTMLInputElement = <HTMLInputElement>this.DomElement.querySelector('#OnDuplicateGroup')
+										                                      .querySelector('input:checked');
+
+			switch(checked.value){
+				case "KeepCurrent" : onDupOp = DataStore.OnDupOption.KeepCurrent; break;
+				case "UseBackup" : onDupOp = DataStore.OnDupOption.UseBackup; break;
+				case "Merge" : onDupOp = DataStore.OnDupOption.Merge; break;
+			}
+
+			DataStore.DS.ImportNotes(backUpData,onDupOp);
 		}
 	}
 

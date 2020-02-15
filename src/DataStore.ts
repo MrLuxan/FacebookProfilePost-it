@@ -34,7 +34,7 @@ export module DataStore {
         return null;        
     }
 
-    ImportNotes(data : JSON, option : OnDupOption) : void
+    ImportNotes(data : any, option : OnDupOption) : void
     {
         console.log("B ImportNotes");
     }
