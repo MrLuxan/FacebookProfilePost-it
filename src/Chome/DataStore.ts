@@ -48,7 +48,7 @@ export module DataStore {
             return null;
         }    
 
-        ImportNotes(backUpData : any, dupOption : OnDupOption) : void
+        ImportNotes(backUpData : any, dupOption : OnDupOption, callBack: (message : string) => void) : void
         {
             chrome.storage.sync.get("profileNotes", (items : any) => {
                 let profileNotes : { [Username: string]: string; } = items.profileNotes;
@@ -74,7 +74,7 @@ export module DataStore {
                 });
 
                 chrome.storage.sync.set({"profileNotes": profileNotes}, () => {
-                    alert("Backup done");
+                    callBack(" - Backup done");
                 });
             });
         }

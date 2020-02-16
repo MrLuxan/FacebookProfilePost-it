@@ -8,6 +8,7 @@ export class SettingsEl extends UiElement {
 	CloseButton : HTMLElement = null;
 	DownloadBackupButton : HTMLAnchorElement = null;
 	UploadBackupInput : HTMLInputElement = null;
+	BackupMessage : HTMLSpanElement = null;
 
 	Close()
 	{
@@ -47,7 +48,9 @@ export class SettingsEl extends UiElement {
 				case "Merge" : onDupOp = DataStore.OnDupOption.Merge; break;
 			}
 
-			DataStore.DS.ImportNotes(backUpData,onDupOp);
+			DataStore.DS.ImportNotes(backUpData,onDupOp,(message : string) => {
+				this.BackupMessage.innerText = message;
+			});
 		}
 	}
 
@@ -59,14 +62,12 @@ export class SettingsEl extends UiElement {
 									<div style="width:800px;height:42px;background-color:#3b5998;color:#FFF;line-height: 42px;padding:0 10px;">\
 										Profile Post-it Settings<div id="CloseSettingsX" style="float:right;cursor:pointer;">X</div>\
 									</div>\
-									<div  style="margin:10px 20px;overflow-y:scroll;height: Calc(100% - 61px);">\
+									<div  style="margin:10px 20px;height: Calc(100% - 61px);">\
 										<h1>Schedule backup reminder</h1>\
 										<div>\
 										      <input type="radio" name="Schedule" value="DontUse" checked="checked"> Don\'t use\
-										  <br><input type="radio" name="Schedule" value="NumberDays"> Prompt number of time passed\
-										  <br><span style="margin-left: 30px;"><input id="ScheduleMonths" type="number" name="quantity" min="0" value="0" style="margin:5px">Months\
-										                              <input id="ScheduleWeeks" type="number" name="quantity" min="0" value="1" style="margin:5px">Weeks\
-										                              <input id="ScheduleDays" type="number" name="quantity" min="0" value="0" style="margin:5px">Days</span>\
+										  <br><input type="radio" name="Schedule" value="NumberDays"> Prompt after number of day\
+										  <br><span style="margin-left: 30px;"><input id="ScheduleDays" type="number" name="quantity" min="1" value="1" style="margin:5px"></span>\
 										  <br><input type="radio" name="Schedule" value="NumberSaves"> Prompt after number of saves\
 										  <br><span style="margin-left: 30px;"><input id="ScheduleSaves" type="number" name="quantity" value="1" min="1"></span>\
 										  <br><button id="SaveSchedule" style="margin-top:10px;">Save</button>\
@@ -81,10 +82,10 @@ export class SettingsEl extends UiElement {
 											<br><br><u>On duplicate</u>\
 											<div id="OnDuplicateGroup" style="margin: 5px 0;">\
 											<input type="radio" name="OnDuplicate" value="KeepCurrent" checked="checked"> Keep current\
-											<br><input type="radio" name="OnDuplicate" value="UseBackup"> Use backup\
-											<br><input type="radio" name="OnDuplicate" value="Merge"> Merge\
+											<input type="radio" name="OnDuplicate" value="UseBackup"> Use backup\
+											<input type="radio" name="OnDuplicate" value="Merge"> Merge\
 											</div>\
-											<button id="BackupUploadButton">Upload</button>\
+											<button id="BackupUploadButton" style="margin-right: 15px;">Upload</button><span id="BackupMessage"></span>\
 										</div>\
 									</div>\
 							</div>';
@@ -99,6 +100,9 @@ export class SettingsEl extends UiElement {
 		this.UploadBackupInput = this.DomElement.querySelector('#BackupUploadFiles');
         let BackupUploadButton : HTMLButtonElement = this.DomElement.querySelector("#BackupUploadButton");
 		BackupUploadButton.addEventListener("click", (e:Event) => this.UploadBackup());
+
+		this.BackupMessage = this.DomElement.querySelector('#BackupMessage');
+
 
 		DataStore.DS.ExportNotes(this.DownloadBackupButton);
 	}
