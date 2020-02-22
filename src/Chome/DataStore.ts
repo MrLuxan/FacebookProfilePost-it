@@ -1,6 +1,7 @@
 declare var chrome: any;
 export module DataStore {
 
+    export enum ReminderOption { Never, Days, Saves }
     export enum OnDupOption { KeepCurrent, UseBackup, Merge}
 
     export class DataStoreClass 
@@ -79,15 +80,32 @@ export module DataStore {
             });
         }
 
-        LoadSettings() : object
+        LoadSettings(callBack :(settings : { [Username: string]: any; }) => void) : void 
         {
-            console.log("C LoadSettings");
-            return null;
+            chrome.storage.sync.get("settings", (items : any) => {
+                let settings : { [Username: string]: any; } = items.settings; 
+                if(settings === undefined)
+                    settings = {};
+                
+                callBack(settings);
+            });
         }
 
-        SaveSettings() 
+        SaveSettings(reminderOp : DataStore.ReminderOption, days : number, saves : number, callBack :(message : string) => void ) : void 
         {
-            console.log("C SaveSettings");
+            chrome.storage.sync.get("settings", (items : any) => {
+                let settings : { [Setting: string]: any; } = items.settings; 
+                if(settings === undefined)
+                    settings = {};
+
+                settings["ReminderOption"] = reminderOp;
+                settings["Days"] = days;
+                settings["Saves"] = saves;
+
+                chrome.storage.sync.set({"settings": settings}, () => {
+                    callBack("Save complete");
+                });
+            });
         }
 
         GetTimeStamp() : string

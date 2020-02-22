@@ -32,9 +32,9 @@ export class Note extends UiElement {
 
 	ShowSettings()
 	{
-		new SettingsEl();
-
-		//todo
+		DataStore.DS.LoadSettings((settings :{ [Settings: string]: any; }) =>{
+			new SettingsEl(settings)
+		});
 	}
 
     constructor(userName : string)

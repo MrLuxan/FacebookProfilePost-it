@@ -1,7 +1,8 @@
 declare var chrome: any;
 export module DataStore {
 
-    export enum OnDupOption { KeepCurrent, UseBackup, Merge}
+    export enum ReminderOption { Never, Days, Saves }
+    export enum OnDupOption { KeepCurrent, UseBackup, Merge }
 
     export class DataStoreClass {
     
@@ -17,13 +18,13 @@ export module DataStore {
         console.log("B SaveUserNode");
     }
 
-    LoadSettings() : object
+    LoadSettings(callBack :(settings : { [Settings: string]: any; }) => void) : void 
     {
         console.log("B LoadSettings");
         return null;
     }
 
-    SaveSettings() 
+    SaveSettings(reminderOp : DataStore.ReminderOption, days : number, saves : number, callBack :(message : string) => void ) : void  
     {
         console.log("B SaveSettings");
     }

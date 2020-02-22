@@ -6,13 +6,37 @@ declare var chrome: any;
 export class SettingsEl extends UiElement {
 
 	CloseButton : HTMLElement = null;
-	DownloadBackupButton : HTMLAnchorElement = null;
-	UploadBackupInput : HTMLInputElement = null;
+	SaveMessage : HTMLSpanElement = null;
 	BackupMessage : HTMLSpanElement = null;
+	UploadBackupInput : HTMLInputElement = null;
+
+	DaysInput : HTMLInputElement = null;
+	SavesInput : HTMLInputElement = null;
 
 	Close()
 	{
 		this.DomElement.parentNode.removeChild(this.DomElement);
+	}
+
+	SaveSettings()
+	{
+		let days : number = Number(this.DaysInput.value);
+		let saves : number = Number(this.SavesInput.value);
+
+		let checked : HTMLInputElement = <HTMLInputElement>this.DomElement.querySelector('#ReminderGroup')
+																		  .querySelector('input:checked');
+		
+		let reminderOp : DataStore.ReminderOption;
+
+		switch(checked.value){
+			case "Never" : reminderOp = DataStore.ReminderOption.Never; break;
+			case "Days" : reminderOp = DataStore.ReminderOption.Days; break;
+			case "Saves" : reminderOp = DataStore.ReminderOption.Saves; break;
+		}
+		
+		DataStore.DS.SaveSettings(reminderOp,days,saves,(message :string ) => {
+			this.SaveMessage.innerText = message;
+		});
 	}
 
 	UploadBackup()
@@ -54,7 +78,7 @@ export class SettingsEl extends UiElement {
 		}
 	}
 
-    constructor()
+    constructor(settings : { [Settings: string]: any; })
     {
 		super();
 
@@ -64,13 +88,11 @@ export class SettingsEl extends UiElement {
 									</div>\
 									<div  style="margin:10px 20px;height: Calc(100% - 61px);">\
 										<h1>Schedule backup reminder</h1>\
-										<div>\
-										      <input type="radio" name="Schedule" value="DontUse" checked="checked"> Don\'t use\
-										  <br><input type="radio" name="Schedule" value="NumberDays"> Prompt after number of day\
-										  <br><span style="margin-left: 30px;"><input id="ScheduleDays" type="number" name="quantity" min="1" value="1" style="margin:5px"></span>\
-										  <br><input type="radio" name="Schedule" value="NumberSaves"> Prompt after number of saves\
-										  <br><span style="margin-left: 30px;"><input id="ScheduleSaves" type="number" name="quantity" value="1" min="1"></span>\
-										  <br><button id="SaveSchedule" style="margin-top:10px;">Save</button>\
+										<div id="ReminderGroup">\
+										      <input type="radio" name="Schedule" value="Never" checked="checked"> Don\'t use\
+										  <br><input type="radio" name="Schedule" value="Days"> Prompt after <input id="ScheduleDays" type="number" name="quantity" min="1" value="30"> days\
+										  <br><input type="radio" name="Schedule" value="Saves"> Prompt after <input id="ScheduleSaves" type="number" name="quantity" min="1" value="50" > saves\
+										  <br><button id="SaveSettings" style="margin-top:10px;">Save</button><span id="SaveMessage"></span>\
 										</div>\
 										<hr><h1>Download backup</h1>\
 										<div>\
@@ -96,14 +118,41 @@ export class SettingsEl extends UiElement {
 		this.CloseButton = this.DomElement.querySelector('#CloseSettingsX');
 		this.CloseButton.addEventListener("click", (e:Event) => this.Close());
 		
-		this.DownloadBackupButton = this.DomElement.querySelector('#DownloadBackupLink');
 		this.UploadBackupInput = this.DomElement.querySelector('#BackupUploadFiles');
         let BackupUploadButton : HTMLButtonElement = this.DomElement.querySelector("#BackupUploadButton");
 		BackupUploadButton.addEventListener("click", (e:Event) => this.UploadBackup());
 
 		this.BackupMessage = this.DomElement.querySelector('#BackupMessage');
 
+		let SaveSettingsButton = this.DomElement.querySelector('#SaveSettings');
+		SaveSettingsButton.addEventListener("click", (e:Event) => this.SaveSettings());
 
-		DataStore.DS.ExportNotes(this.DownloadBackupButton);
+		this.SaveMessage =  this.DomElement.querySelector('#SaveMessage');
+		
+
+		this.DaysInput = <HTMLInputElement>this.DomElement.querySelector('#ScheduleDays');
+		this.SavesInput = <HTMLInputElement>this.DomElement.querySelector('#ScheduleSaves');
+
+		if(settings != {})
+		{
+			let op : DataStore.ReminderOption = <DataStore.ReminderOption> settings["ReminderOption"];
+			switch(op)
+			{
+				case DataStore.ReminderOption.Never :
+					(<HTMLInputElement>this.DomElement.querySelector('[value="Never"]')).checked = true;
+					break;
+				case DataStore.ReminderOption.Days :
+					(<HTMLInputElement>this.DomElement.querySelector('[value="Days"]')).checked = true;
+					break;
+				case DataStore.ReminderOption.Saves :
+					(<HTMLInputElement>this.DomElement.querySelector('[value="Saves"]')).checked = true;
+					break;
+			}
+			
+			this.DaysInput.value = settings["Days"];
+			this.SavesInput.value = settings["Saves"];
+		}
+
+		DataStore.DS.ExportNotes(this.DomElement.querySelector('#DownloadBackupLink'));
 	}
 }
