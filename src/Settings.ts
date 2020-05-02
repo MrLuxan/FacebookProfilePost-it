@@ -87,14 +87,7 @@ export class SettingsEl extends UiElement {
 										Profile Post-it Settings<div id="CloseSettingsX" style="float:right;cursor:pointer;">X</div>\
 									</div>\
 									<div  style="margin:10px 20px;height: Calc(100% - 61px);">\
-										<h1>Schedule backup reminder</h1>\
-										<div id="ReminderGroup">\
-										      <input type="radio" name="Schedule" value="Never" checked="checked"> Don\'t use\
-										  <br><input type="radio" name="Schedule" value="Days"> Prompt after <input id="ScheduleDays" type="number" name="quantity" min="1" value="30"> days\
-										  <br><input type="radio" name="Schedule" value="Saves"> Prompt after <input id="ScheduleSaves" type="number" name="quantity" min="1" value="50" > saves\
-										  <br><button id="SaveSettings" style="margin-top:10px;">Save</button><span id="SaveMessage"></span>\
-										</div>\
-										<hr><h1>Download backup</h1>\
+										<h1>Download backup</h1>\
 										<div>\
 											<span style="margin-right: 5px;"><a id="DownloadBackupLink">Download backup file</a></span>\
 										</div>\

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Facebook Profile Post-it",
-  "description": "Keep a note on a person's profile page",
+  "name": "Profile Post-it",
+  "description": "Add a note to a person's Facebook profile page",
   "version": "---",
   "applications": {
     "gecko": {
@@ -10,15 +10,18 @@
   },
   "icons": {
     "512": "images/Icon512.png",
-    "128": "images/Icon128.png"
+    "128": "images/Icon128.png",
+    "96": "images/Icon96.png",
+    "48": "images/Icon48.png"
   },
   "web_accessible_resources": [
-    "images/*.png"
+    "images/*.svg"
   ],
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["*://*.facebook.com/*"],
-      "js": ["indexedbInterface.js", "contentscript.js"]
+      "js": ["contentscript.js"]
     }
   ]
 

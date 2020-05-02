@@ -1,5 +1,6 @@
 node_modules
 package-lock.json
-Chome extension
+Chrome extension
 Firefox extension
 src/BuildTemp
+Packed

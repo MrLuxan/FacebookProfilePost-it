@@ -50,7 +50,7 @@ export class Note extends UiElement {
 				<div class="_4-u2 _4-u8">
 					<div class="clearfix _3-8t _2pi4 _46yc">
 							<div title="Settings" id="SettingsButton" style="float:right;cursor:pointer;margin-right:10px;"><img style="width:16px;height:16px;" src="` +chrome.runtime.getURL("images/cog.svg")+`"></div>
-							<div style="width: 24px;height: 24px;border-radius: 12px;background-color:#3b5998;color:#FFF;text-align: center;float:left;font-size: 18px;">&#9998;</div>
+							<div style="width: 24px;height: 24px;border-radius: 12px;background-color:#3b5998;color:#FFF;text-align: center;float:left;font-size: 18px;cursor:default;">&#9998;</div>
 						<div class="clearfix _8u _42ef">
 						<span class="_65tx rfloat _ohf"></span>
 						<div class="_6a _3-99">

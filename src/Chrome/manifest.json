@@ -1,7 +1,7 @@
 {
-  "name": "Facebook Profile Post-it",
+  "name": "Profile Post-it",
   "version": "---",
-  "description": "Keep a note on a person's profile page",
+  "description": "Add a note to a person's Facebook profile page",
   "permissions": ["storage"],
   "icons": { "16": "images/Icon16.png",
              "48": "images/Icon48.png",

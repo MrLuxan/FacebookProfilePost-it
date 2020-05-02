@@ -1,4 +1,4 @@
-declare var browser: any;
+declare var chrome: any;
 export module DataStore {
 
     export enum ReminderOption { Never, Days, Saves }
@@ -8,7 +8,7 @@ export module DataStore {
     {
         LoadUserNote(username : string, callBack: (note: string) => void): void
         {   
-            browser.storage.sync.get("profileNotes", (items : any) => {
+            chrome.storage.sync.get("profileNotes", (items : any) => {
                 let profileNotes : { [Username: string]: string; } = items.profileNotes; 
                 if(profileNotes === undefined)
                     profileNotes = {};
@@ -20,13 +20,13 @@ export module DataStore {
 
         SaveUserNote(username : string , note : string, callBack: (saveOk : boolean) => void): void
         {
-            browser.storage.sync.get("profileNotes", (items : any) => {
+            chrome.storage.sync.get("profileNotes", (items : any) => {
                 let profileNotes : { [Username: string]: string; } = items.profileNotes; 
                 if(profileNotes === undefined)
                     profileNotes = {};
                     
                 profileNotes[username] = note;
-                browser.storage.sync.set({"profileNotes": profileNotes}, () => {
+                chrome.storage.sync.set({"profileNotes": profileNotes}, () => {
                     callBack(true);
                 });
             });
@@ -34,7 +34,7 @@ export module DataStore {
 
         ExportNotes(downloadButton : HTMLAnchorElement): void
         {
-            browser.storage.sync.get("profileNotes", (items : any) => {
+            chrome.storage.sync.get("profileNotes", (items : any) => {
                 let profileNotes : { [Username: string]: string; } = items.profileNotes; 
                 if(profileNotes === undefined)
                     profileNotes = {};
@@ -51,7 +51,7 @@ export module DataStore {
 
         ImportNotes(backUpData : any, dupOption : OnDupOption, callBack: (message : string) => void) : void
         {
-            browser.storage.sync.get("profileNotes", (items : any) => {
+            chrome.storage.sync.get("profileNotes", (items : any) => {
                 let profileNotes : { [Username: string]: string; } = items.profileNotes;
 
                 Object.keys(backUpData).forEach((key) => {
@@ -74,7 +74,7 @@ export module DataStore {
 
                 });
 
-                browser.storage.sync.set({"profileNotes": profileNotes}, () => {
+                chrome.storage.sync.set({"profileNotes": profileNotes}, () => {
                     callBack(" - Backup done");
                 });
             });
@@ -82,7 +82,7 @@ export module DataStore {
 
         LoadSettings(callBack :(settings : { [Username: string]: any; }) => void) : void 
         {
-            browser.storage.sync.get("settings", (items : any) => {
+            chrome.storage.sync.get("settings", (items : any) => {
                 let settings : { [Username: string]: any; } = items.settings; 
                 if(settings === undefined)
                     settings = {};
@@ -93,7 +93,7 @@ export module DataStore {
 
         SaveSettings(reminderOp : DataStore.ReminderOption, days : number, saves : number, callBack :(message : string) => void ) : void 
         {
-            browser.storage.sync.get("settings", (items : any) => {
+            chrome.storage.sync.get("settings", (items : any) => {
                 let settings : { [Setting: string]: any; } = items.settings; 
                 if(settings === undefined)
                     settings = {};
@@ -102,7 +102,7 @@ export module DataStore {
                 settings["Days"] = days;
                 settings["Saves"] = saves;
 
-                browser.storage.sync.set({"settings": settings}, () => {
+                chrome.storage.sync.set({"settings": settings}, () => {
                     callBack("Save complete");
                 });
             });

@@ -8,6 +8,7 @@ var tsify = require("tsify");
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
+var zip = require('gulp-zip');
 
 var fs = require('fs');
 var GulpVars = JSON.parse(fs.readFileSync('./gulp-tasks/GulpVariables.json'))
@@ -33,7 +34,7 @@ gulp.task('ChromeCopyImages', function(){
 });
 
 
-gulp.task("ChromeManifst", function () {
+gulp.task("ChromeManifest", function () {
   return gulp.src(GulpVars.ChromeSrc+ "manifest.json")
              .pipe(jeditor(function(json) {
               json.version = GulpVars.ExtensionVersion;
@@ -62,8 +63,18 @@ gulp.task('ChromeBuildJs', gulp.series(
               .pipe(gulp.dest(GulpVars.ChromeDist))}
 ));
 
-
-gulp.task('ChromeFull', gulp.series(
-  gulp.parallel('ChromeIconResize','ChromeCopyImages','ChromeManifst','ChromeBuildJs')
+gulp.task('ChromeBuild', 
+  gulp.parallel('ChromeIconResize','ChromeCopyImages','ChromeManifest','ChromeBuildJs')
   //Package
-  ));
+);
+
+gulp.task('ChromePack', function(){
+  return gulp.src(GulpVars.ChromeDist + "*")
+             .pipe(zip('Chrome.zip'))
+             .pipe(gulp.dest('Packed/'))
+});
+
+gulp.task('ChromeBuildAndPack', gulp.series(
+  'ChromeBuild',
+  'ChromePack'
+));

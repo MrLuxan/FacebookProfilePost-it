@@ -1,17 +1,29 @@
-# Facebook Profile Post-it  
+# Profile Post-it  
 
 Read me coming soon  
 
 ---  
 
-npm install  
-
 # Build commands  
 
-npm run SetExtensionVersion -BuildNo={x}  
-npm run CheckExtensionVersion  
+**npm install** - Get all requierd dependencies  
 
-gulp ChromeIconResize  
-gulp ChromeManifst  
-gulp ChromeBuildJs  
-gulp ChromeFull  
+**npm run SetExtensionVersion -BuildNo={x}** - Sets the version number used in manifests
+**npm run CheckExtensionVersion** - Outputs the current version number
+
+**gulp ChromeIconResize** - Resize extension icon for Chrome's requiered sizes
+**gulp ChromeManifest** - Created Chrome's manifest
+**gulp ChromeBuildJs** - Builds extension's code (Complie typescript, includes correct storeage libray) 
+**gulp ChromeBuild** - Runs all Chrome's build tasks (Three above tasks)
+**gulp ChromePack** - Zip extension folder 
+
+**gulp ChromeBuildAndPack** - Builds Chrome extension and zips it
+
+
+**gulp FirefoxIconResize** - Resize extension icon for Firefox's requiered sizes
+**gulp FirefoxManifest** - Created Firefox's manifest
+**gulp FirefoxBuildJs** - Builds extension's code (Complie typescript, includes correct storeage libray) 
+**gulp FirefoxBuild** - Runs all Firefox's build tasks (Three above tasks)
+**gulp FirefoxPack** - Zip extension folder 
+
+**gulp FirefoxBuildAndPack** - Builds Firefox extension and zips it
