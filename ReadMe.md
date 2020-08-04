@@ -10,7 +10,7 @@ Add a note to a person's Facebook profile page
 
 **npm install** - Get all requierd dependencies  
 
-**npm run SetExtensionVersion -BuildNo={x}** - Sets the version number used in manifests
+**npm run SetExtensionVersion -BuildNo={x}** - Sets the version number used in manifests\
 **npm run CheckExtensionVersion** - Outputs the current version number\
 
 **gulp ChromeIconResize** - Resize extension icon for Chrome's requiered sizes\
