@@ -12,18 +12,37 @@ let observer = new MutationObserver(function(mutations) {
 
 			if(urlBrakeDown != null)
 			{
+
 				if(urlBrakeDown.length >= 2)
 				{
 					let username = urlBrakeDown[1];
 
-					let list = document.querySelector('#timeline_small_column');
-					if(username != LastName && list != null)
+					let newLayoutEl : HTMLElement = document.querySelector('.o387gat7');
+					let oldLayoutEl : HTMLElement = document.querySelector('#timeline_small_column');
+					
+					if(oldLayoutEl != null || newLayoutEl != null)
 					{
-						LastName = username;
-						LastURL = new_url;
+						let isNewLayout : boolean = newLayoutEl != null;
 
-						let newNote = new Note(username);
+						if(username != LastName)
+						{
+							LastName = username;
+							LastURL = new_url;
+
+							let newNote = new Note(username,isNewLayout);
+
+							if(isNewLayout)
+							{
+								let insetInto = newLayoutEl.querySelector('.lpgh02oy') .childNodes[0];
+								insetInto.insertBefore(newNote.DomElement, insetInto.childNodes[0]);
+							}
+							else
+							{
+								oldLayoutEl.insertBefore(newNote.DomElement, oldLayoutEl.childNodes[0]);
+							}
+						}
 					}
+
 				}
 			}
 		}

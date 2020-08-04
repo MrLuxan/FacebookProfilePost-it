@@ -9,6 +9,7 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
 var zip = require('gulp-zip');
+var replace = require('gulp-replace');
 
 var fs = require('fs');
 var GulpVars = JSON.parse(fs.readFileSync('./gulp-tasks/GulpVariables.json'))
@@ -41,11 +42,19 @@ gulp.task("ChromeManifest", function () {
               return json; // must return JSON object.
               }))
              .pipe(gulp.dest(GulpVars.ChromeDist));
-}); 
+});
+
+gulp.task("ChromeInsertNoteHtml", function(){
+  return gulp.src(['./src/BuildTemp/Note.ts'])
+             .pipe(replace('[OldNote.html]', fs.readFileSync("./src/OldNote.html", "utf8")))
+             .pipe(replace('[NewNote.html]', fs.readFileSync("./src/NewNote.html", "utf8")))
+             .pipe(gulp.dest('./src/BuildTemp/'));
+});
 
 gulp.task('ChromeBuildJs', gulp.series( 
   function () { return gulp.src('./src/*.ts').pipe(gulp.dest('./src/BuildTemp/'))},
   function () { return gulp.src('./src/Chome/*.ts').pipe(gulp.dest('./src/BuildTemp/'))},
+  'ChromeInsertNoteHtml',
   function () { return browserify({
                   basedir: '.',
                   debug: true,
@@ -58,7 +67,7 @@ gulp.task('ChromeBuildJs', gulp.series(
               .pipe(source('contentscript.js'))
               .pipe(buffer())
               .pipe(sourcemaps.init({loadMaps: true}))
-              .pipe(uglify())
+              //.pipe(uglify())
               .pipe(sourcemaps.write('./'))
               .pipe(gulp.dest(GulpVars.ChromeDist))}
 ));
